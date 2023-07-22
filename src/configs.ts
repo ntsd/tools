@@ -1,5 +1,5 @@
-export const pageTitle = "Amdahl's Law Calculator";
+export const pageTitle = 'Scalability Calculator';
 
-export const pageDescription = "Calculate and visualization the Amdahl's Law formula.";
+export const pageDescription = 'Calculate and visualize scalability formulas.';
 
-export const githubLink = 'https://github.com/ntsd/amdahl-law-calculator';
+export const githubLink = 'https://github.com/ntsd/scalability-calculator';
