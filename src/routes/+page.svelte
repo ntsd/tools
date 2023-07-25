@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { pageDescription } from '../configs';
 </script>
 
@@ -14,10 +15,10 @@
 </p>
 <div class="flex flex-col justify-center content-center text-center gap-10">
 	<div>
-		<a class="link text-4xl font-bold" href="/universal-scalability-law">Universal Scalability Law Calculator</a>
+		<a class="link text-4xl font-bold" href="{base}/universal-scalability-law">Universal Scalability Law Calculator</a>
 	</div>
 	<div>
-		<a class="link text-4xl font-bold" href="/amdahl-law">Amdahl's Law Calculator</a>
+		<a class="link text-4xl font-bold" href="{base}/amdahl-law">Amdahl's Law Calculator</a>
 	</div>
 
 	<div class="text-lg font-bold text-gray-500">Queuing Theory Calculator <span class="text-error">(coming soon)</span></div>
