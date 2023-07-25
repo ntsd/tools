@@ -1,5 +1,3 @@
-<article class="prose max-w-none">
-
 `S_latency(s) = 1 / [(1 - p) + (p / s)]`
 
 where:
@@ -13,5 +11,3 @@ where:
 In the context of parallel computing s often refers to the number of processors in the system and p is the parallel portion of the program. In such a context, Amdahl's law states that the speedup of a program using multiple processors in parallel computing is limited by the time needed for the sequential fraction of the program.
 
 For example, if 95% of the program can be parallelized, the theoretical maximum speedup using parallel computing would be 20 times, no matter how many processors are used.
-
-</article>

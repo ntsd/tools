@@ -6,6 +6,7 @@
 		ChartTheme,
 		ScaleTypes
 	} from '@carbon/charts';
+	import darkModeStore, { getDarkMode } from '../stores/darkModeStore';
 
 	let percent = 90; // the percentage of the program that can be parallelized
 
@@ -13,17 +14,10 @@
 		return 1 / (1 - percent + percent / processors);
 	}
 
-	const htmlElem = document.querySelector('html');
-	let isDark = htmlElem?.getAttribute('data-theme') === 'dark';
-	if (htmlElem) {
-		const setAttribute = htmlElem.setAttribute;
-		htmlElem.setAttribute = (key: string, value: string) => {
-			if (key === 'data-theme') {
-				isDark = value == 'dark';
-			}
-			setAttribute.call(htmlElem, key, value);
-		};
-	}
+	let isDark = getDarkMode();
+	darkModeStore.subscribe((darkMode) => {
+		isDark = darkMode;
+	});
 
 	$: maxSpeedup = 1 / (1 - percent / 100);
 	$: options = {
@@ -85,7 +79,14 @@
 		</div>
 	</div>
 	<div class="pb-2">
-		<input type="range" min="0" max="100" bind:value={percent} class="range range-primary" step="1" />
+		<input
+			type="range"
+			min="0"
+			max="100"
+			bind:value={percent}
+			class="range range-primary"
+			step="1"
+		/>
 		<div class="w-full flex justify-between text-xs">
 			<span>0%</span>
 			<span>25%</span>

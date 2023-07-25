@@ -1,20 +1,19 @@
 <script lang="ts">
 	import { githubLink, pageTitle } from '../../configs';
+	import darkModeStore, { getDarkMode, setDarkMode } from '../../stores/darkModeStore';
 	import SunMoon from '../icons/SunMoon.svelte';
 
-	const darkMode = window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches || false;
-
-	function themeChange(darkMode: boolean) {
-		document?.querySelector('html')?.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-	}
-	themeChange(darkMode);
+	let darkMode = getDarkMode();
+	darkModeStore.subscribe((darkMode) => {
+		darkMode = darkMode;
+	});
 </script>
 
 <div class="navbar w-full">
 	<div class="navbar-start">
-		<SunMoon onChange={themeChange} {darkMode} />
+		<SunMoon onChange={setDarkMode} {darkMode} />
 	</div>
-	<div class="navbar-center lg:text-xl font-bold">{pageTitle}</div>
+	<div class="navbar-center lg:text-xl font-bold"><a href="/">{pageTitle}</a></div>
 	<div class="navbar-end">
 		<a
 			aria-label="Github"

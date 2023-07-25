@@ -1,4 +1,4 @@
-# Scalability Calculator
+# Scalability Calculators
 
 A scalability calculation tools
 
@@ -9,11 +9,3 @@ A scalability calculation tools
 <http://www.perfdynamics.com/Manifesto/USLscalability.html>
 
 <https://arxiv.org/abs/0808.1431>
-
-<https://speakerdeck.com/drqz/applying-the-universal-scalability-law-to-distributed-systems>
-
-<https://wso2.com/blog/research/scalability-modeling-using-universal-scalability-law/>
-
-<https://softwaremill.com/math-behind-software/>
-
-<https://www.youtube.com/watch?v=lZU6RK0oazM>
