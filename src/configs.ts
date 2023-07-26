@@ -4,4 +4,4 @@ export const pageDescription = 'Calculate and visualize scalability formulas too
 
 export const githubLink = 'https://github.com/ntsd/scalability-calculators';
 
-export const pageURL = 'https://ntsd.github.io/scalability-calculators';
+export const pageURL = 'https://scalability-calculators.ntsd.dev';
