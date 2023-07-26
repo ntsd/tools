@@ -1,10 +1,12 @@
 <script lang="ts">
 	export let title: string;
-	export let isOpen: boolean = false;
+	export let isOpen: boolean = true;
 </script>
 
-<div tabindex="-1" class="collapse collapse-plus border border-base-300">
-	<input type="radio" name="my-accordion-2" checked={isOpen} />
+<div
+	tabindex="-1"
+	class="collapse border border-base-300 {isOpen ? 'collapse-open' : 'collapse-close'}"
+>
 	<div class="collapse-title text-xl font-bold">
 		{title}
 	</div>

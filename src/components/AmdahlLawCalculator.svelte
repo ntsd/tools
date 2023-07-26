@@ -32,7 +32,7 @@
 			},
 			bottom: {
 				mapsTo: 'processors',
-				title: 'Number of Processors',
+				title: 'Number of Processors (s)',
 				scaleType: ScaleTypes.LABELS
 			}
 		},
@@ -61,7 +61,7 @@
 <form class="space-y-4">
 	<div class="flex justify-between items-center">
 		<div>
-			<span class="text-sm lg:text-lg">Parallelized Percent</span>
+			<span class="text-sm lg:text-lg">Parallelized Percent (p)</span>
 			<p class="text-xs lg:text-md text-gray-500">
 				Percentage of the program that can be parallelized.
 			</p>

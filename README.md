@@ -1,6 +1,6 @@
 # Scalability Calculators
 
-A scalability calculation tools
+A scalability calculation tools for System Design.
 
 # References
 
@@ -9,3 +9,5 @@ A scalability calculation tools
 <http://www.perfdynamics.com/Manifesto/USLscalability.html>
 
 <https://arxiv.org/abs/0808.1431>
+
+<https://web.mst.edu/~gosavia/queuing_formulas.pdf>

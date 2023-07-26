@@ -133,7 +133,7 @@
 			for (let i = 1; i <= maxChartX; i++) {
 				newConcurrencies.push(i);
 			}
-			chartConcurrencies = newConcurrencies
+			chartConcurrencies = newConcurrencies;
 		}
 	}
 
@@ -150,7 +150,7 @@
 			bottom: {
 				mapsTo: 'concurrency',
 				title: 'Concurrency (N)',
-				scaleType: ScaleTypes.LINEAR,
+				scaleType: ScaleTypes.LINEAR
 			}
 		},
 		height: '400px',
@@ -175,70 +175,75 @@
 </script>
 
 <div class="space-y-4 flex flex-col">
-	{#each uslElements as elem, i}
-		<div class="grid grid-cols-1 md:grid-cols-3 flex-row items-end gap-4">
-			<div class="form-control">
-				<label class="label" for={`concurrency-${i}`}>
-					<span class="label-text">Concurrency N={elem.N}</span>
-				</label>
-				<input
-					id={`concurrency-${i}`}
-					type="number"
-					bind:value={elem.N}
-					on:change={(e) => {
-						onNChange(e, i);
+	<div class="flex flex-col">
+		{#each uslElements as elem, i}
+			<div class="grid grid-cols-1 md:grid-cols-3 flex-row items-end gap-2">
+				<div class="form-control">
+					<label class="label" for={`concurrency-${i}`}>
+						<span class="label-text">Concurrency (N)</span>
+					</label>
+					<input
+						id={`concurrency-${i}`}
+						type="number"
+						bind:value={elem.N}
+						on:change={(e) => {
+							onNChange(e, i);
+						}}
+						min="0"
+						placeholder="Enter the number of concurrency (N)"
+						class="input input-bordered"
+						disabled={i === 0}
+					/>
+				</div>
+
+				<div class="form-control">
+					<label class="label" for={`throughput-${i}`}>
+						<span class="label-text">Throughput C({elem.N})</span>
+					</label>
+					<input
+						id={`throughput-${i}`}
+						type="number"
+						bind:value={elem.C}
+						min="0"
+						placeholder="Enter the number of throughput C(N)"
+						class="input input-bordered"
+					/>
+				</div>
+
+				<button
+					class="btn btn-square btn-outline btn-error"
+					on:click={() => {
+						removeUSLElem(i);
 					}}
-					min="0"
-					placeholder="Enter the number of concurrency (N)"
-					class="input input-bordered"
-					disabled={i === 0}
-				/>
-			</div>
-
-			<div class="form-control">
-				<label class="label" for={`throughput-${i}`}>
-					<span class="label-text">Throughput C({elem.N})</span>
-				</label>
-				<input
-					id={`throughput-${i}`}
-					type="number"
-					bind:value={elem.C}
-					min="0"
-					placeholder="Enter the number of throughput C(N)"
-					class="input input-bordered"
-				/>
-			</div>
-
-			<button
-				class="btn btn-square btn-outline btn-error"
-				on:click={() => {
-					removeUSLElem(i);
-				}}
-				disabled={i === 0 || uslElements.length < 3}
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					><path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M6 18L18 6M6 6l12 12"
-					/></svg
+					disabled={i === 0 || uslElements.length < 3}
 				>
-			</button>
-		</div>
-	{/each}
-
-	<button on:click={addUSLElem} class="btn btn-secondary">Add More</button>
-	<button on:click={curveFitting} class="btn btn-primary">Calculate</button>
-	<p>Estimate Alpha (α): {alpha}</p>
-	<p>Estimate Beta (β): {beta}</p>
-	<p>Error (Sum of squares): {error}</p>
-	<p>Scalability Limit: {scalabilityLimit}</p>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						><path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"
+						/></svg
+					>
+				</button>
+			</div>
+		{/each}
+	</div>
+	<div class="flex flex-row gap-2">
+		<button on:click={addUSLElem} class="btn btn-secondary">Add More</button>
+		<button on:click={curveFitting} class="btn btn-primary">Calculate</button>
+	</div>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+		<p>Estimate Alpha (α): {alpha}</p>
+		<p>Estimate Beta (β): {beta}</p>
+		<p>Error (Sum of squares): {error}</p>
+		<p>Scalability Limit: {scalabilityLimit}</p>
+	</div>
 
 	<LineChart {data} {options} />
 </div>
