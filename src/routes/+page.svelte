@@ -1,15 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { pageDescription, pageURL } from '../configs';
+	import { pageDescription } from '../configs';
 </script>
-
-<svelte:head>
-	<title>Scalability Calculators</title>
-	<meta name="description" content={pageDescription} />
-	<meta property="og:title" content="Scalability Calculators" />
-	<meta property="og:description" content={pageDescription} />
-	<meta property="og:image" content={`${pageURL}/calculator-512.png`} />
-</svelte:head>
 
 <p class="text-center mb-4 xl:mb-8 p-1">
 	{pageDescription}
