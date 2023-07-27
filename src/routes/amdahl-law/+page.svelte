@@ -10,6 +10,7 @@
 
 <svelte:head>
 	<title>Amdahl's Law Calculator</title>
+	<meta name="description" content="Calculate and visualize the Amdahl's Law for System Design" />
 	<meta property="og:title" content="Amdahl's Law Calculator" />
 	<meta property="og:description" content="Calculate and visualize the Amdahl's Law for System Design" />
 	<meta property="og:image" content={`${pageURL}/calculator-512.png`} />

@@ -13,6 +13,7 @@
 
 <svelte:head>
 	<title>Universal Scalability Law Calculator</title>
+	<meta name="description" content="Calculate and visualize the Universal Scalability Law for System Design" />
 	<meta property="og:title" content="Universal Scalability Law Calculator" />
 	<meta property="og:description" content="Calculate and visualize the Universal Scalability Law for System Design" />
 	<meta property="og:image" content={`${pageURL}/calculator-512.png`} />
