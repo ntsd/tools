@@ -238,11 +238,18 @@
 		<button on:click={addUSLElem} class="btn btn-secondary">Add More</button>
 		<button on:click={curveFitting} class="btn btn-primary">Calculate</button>
 	</div>
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
 		<p>Estimate Alpha (α): {alpha}</p>
 		<p>Estimate Beta (β): {beta}</p>
 		<p>Error (Sum of squares): {error}</p>
-		<p>Scalability Limit: {scalabilityLimit}</p>
+		<p>
+			Scalability Limit: C({scalabilityLimit})={usl(
+				scalabilityLimit,
+				uslElements[0].C,
+				alpha,
+				beta
+			)}
+		</p>
 	</div>
 
 	<LineChart {data} {options} />

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import '@carbon/charts-svelte/styles.css';
+	import '@carbon/charts-svelte/styles.min.css';
 
 	import Footer from '../components/layout/Footer.svelte';
 	import Navbar from '../components/layout/Navbar.svelte';
