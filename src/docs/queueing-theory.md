@@ -1,0 +1,1 @@
+Queuing theory is a mathematical approach to the analysis of waiting lines. It's applicable to a wide variety of situations that arise in business, industry, and public service, especially in areas like logistics, industrial engineering, and operations management.

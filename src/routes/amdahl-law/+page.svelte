@@ -4,7 +4,7 @@
 	// @ts-ignore import svx extension for markdown
 	import AmdahlDoc from '../../docs/amdahl-law.md';
 	// @ts-ignore import svx extension for markdown
-	import AmdahlFormulaDoc from '../../docs/amdahl-formula.md';
+	import AmdahlFormulaDoc from '../../docs/amdahl-law-formula.md';
 </script>
 
 <div class="px-4 pb-8 space-y-4">

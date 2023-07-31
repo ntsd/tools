@@ -1,10 +1,12 @@
 import path from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
+import * as cheerio from 'cheerio';
 
 /** @type {import('.').default} */
 export default function (insideAdapter, pages = 'build') {
+	const name = 'custom-adapter';
 	return {
-		name: 'custom-adaptor',
+		name: insideAdapter ? `${name}, ${insideAdapter.name}` : name,
 		async adapt(builder) {
 			if (insideAdapter) {
 				await insideAdapter.adapt(builder);
@@ -14,7 +16,7 @@ export default function (insideAdapter, pages = 'build') {
 			builder.prerendered.pages.forEach(async (page, key) => {
 				const headerPath = path.join(routesPath, key, 'header.html');
 				const htmlPath = path.join(pages, page.file);
-				builder.log(`Rendering preload header ${key} to ${htmlPath}`);
+				builder.log.info(`Rendering preload header ${key} to ${htmlPath}`);
 
 				let preloadHead = '';
 
@@ -28,9 +30,11 @@ export default function (insideAdapter, pages = 'build') {
 					}
 				}
 
+				// prepend head by cheerio
 				let html = readFileSync(htmlPath).toString();
-				html = html.replace(/%preload\.head%/g, preloadHead);
-				await writeFileSync(htmlPath, html);
+				const $ = cheerio.load(html);
+				$('head').prepend(preloadHead);
+				await writeFileSync(htmlPath, $.html());
 			});
 		}
 	};

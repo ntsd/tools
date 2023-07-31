@@ -8,8 +8,8 @@ export default function () {
 		script({ content, filename, markup, attributes }) {
 			return { code: content };
 		},
-		style({ content, filename, markup, attributes}) {
+		style({ content, filename, markup, attributes }) {
 			return { code: content };
-		} 
+		}
 	};
 }

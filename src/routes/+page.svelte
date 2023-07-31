@@ -7,7 +7,7 @@
 	{pageDescription}
 </p>
 <div
-	class="flex flex-col justify-center content-center text-center gap-10 text-lg lg:text-2xl font-bold"
+	class="flex flex-col justify-around content-center gap-10 text-center text-lg lg:text-2xl font-bold"
 >
 	<div>
 		<a class="link" href="{base}/universal-scalability-law">Universal Scalability Law Calculator</a>
@@ -15,12 +15,7 @@
 	<div>
 		<a class="link" href="{base}/amdahl-law">Amdahl's Law Calculator</a>
 	</div>
-
-	<div class="text-gray-500">
-		Queuing Theory Calculator <span class="text-error">(coming soon)</span>
-	</div>
-
-	<div class="text-gray-500">
-		Pollaczek-Khinchine formula Calculator <span class="text-error">(coming soon)</span>
+	<div>
+		<a class="link" href="{base}/queueing-theory">Queueing Theory Calculator</a>
 	</div>
 </div>
