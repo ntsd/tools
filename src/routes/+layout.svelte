@@ -19,7 +19,7 @@
 
 <div class="flex flex-col min-h-screen">
 	<Navbar />
-	<div class="flex-grow container mx-auto justify-items-center">
+	<div class="flex-grow container mx-auto justify-items-center py-10">
 		<slot />
 	</div>
 	<Footer />

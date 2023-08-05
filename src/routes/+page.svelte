@@ -16,6 +16,6 @@
 		<a class="link" href="{base}/amdahl-law">Amdahl's Law Calculator</a>
 	</div>
 	<div>
-		<a class="link" href="{base}/queueing-theory">Queueing Theory Calculator</a>
+		<a class="link" href="{base}/queuing-theory">Queuing Theory Calculator</a>
 	</div>
 </div>

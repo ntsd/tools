@@ -11,7 +11,7 @@
 </script>
 
 <div class="px-4 pb-8 space-y-4">
-	<div class="text-lg lg:text-2xl font-bold">Universal Scalability Law Calculator</div>
+	<div class="text-lg lg:text-2xl font-bold pb-2 underline">Universal Scalability Law Calculator</div>
 	<UslCalculator />
 </div>
 

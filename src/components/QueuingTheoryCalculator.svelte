@@ -10,11 +10,12 @@
 	});
 
 	// input
-	// let model = 'M/M/s'; // selected model
-	let lambda = 60; // arrival rate (λ)
-	let mu = 75; // service rate (μ) (customers per service)
-	let s = 3; // number of service
-	// let d = 0; // Deterministic service time (time units per customer)
+	let model = 'M/M/s/K'; // selected model
+	let lambda = 45; // 60; // arrival rate (λ)
+	let mu = 15; // 75; // service rate (μ) (avg customers per servers)
+	let s = 3; // number of servers
+	let k = 12; // a maximum of K customers can be in the system
+	let d = 0; // Deterministic service time (time units per customer)
 
 	// output
 	let rho: number;
@@ -26,12 +27,28 @@
 	let chartCustomers: { customer: number; probability: number }[] = [];
 
 	function calculateChartCustomers() {
-		[rho, p0, lq, l, wq, w] = mmsQueueCalculation(lambda, mu, s);
+		switch (model) {
+			case 'M/M/s':
+				[rho, p0, lq, l, wq, w] = mmsQueueCalculation(lambda, mu, s);
+				break;
+			case 'M/M/s/K':
+				[rho, p0, lq, l, wq, w] = mmsQueueCalculation(lambda, mu, s, k);
+				break;
+		}
+
 		let newChartCustomers: { customer: number; probability: number }[] = [];
 		let n = 0;
 		let p = 0;
-		while (p < 0.999) {
-			const pn = mmsProbabilityN(n, lambda, mu, s, p0);
+		let pn = -1;
+		while (p < 0.999 && pn != 0) {
+			switch (model) {
+				case 'M/M/s':
+					pn = mmsProbabilityN(n, lambda, mu, s, p0);
+					break;
+				case 'M/M/s/K':
+					pn = mmsProbabilityN(n, lambda, mu, s, p0, k);
+					break;
+			}
 			p += pn;
 			newChartCustomers.push({
 				customer: n,
@@ -40,7 +57,14 @@
 			n += 1;
 		}
 
-		const pn = mmsProbabilityN(n, lambda, mu, s, p0);
+		switch (model) {
+			case 'M/M/s':
+				pn = mmsProbabilityN(n, lambda, mu, s, p0);
+				break;
+			case 'M/M/s/K':
+				pn = mmsProbabilityN(n, lambda, mu, s, p0, k);
+				break;
+		}
 		newChartCustomers.push({
 			customer: n,
 			probability: pn * 100
@@ -56,13 +80,13 @@
 		axes: {
 			left: {
 				mapsTo: 'probability',
-				title: 'Probability of n Customers the Queue (Pn)%',
+				title: 'Probability of n customers in queue (Pn)%',
 				scaleType: ScaleTypes.LINEAR,
 				includeZero: false
 			},
 			bottom: {
 				mapsTo: 'customer',
-				title: 'Number of Customers (n)',
+				title: 'Number of customers in queue (n)',
 				scaleType: ScaleTypes.LINEAR
 			}
 		},
@@ -79,23 +103,21 @@
 	} satisfies LineChartOptions;
 </script>
 
-<!-- <div>
-	<label>
-		Select Model:
-		<select bind:value={model} on:change={() => {}}>
-			<option value="M/M/s">M/M/s</option>
-			<option value="M/D/s">M/D/s</option>
-			<option value="M/G/s">M/G/s</option>
-			<option value="G/G/s">G/G/s</option>
-		</select>
-	</label>
-</div> -->
-
 <div class="flex flex-col gap-4">
 	<div class="flex justify-between items-center">
 		<div>
+			<span class="text-sm lg:text-lg">Select Model</span>
+			<p class="text-xs lg:text-md text-gray-500">Select queuing theory model</p>
+		</div>
+		<select class="select select-bordered" bind:value={model} on:change={calculateChartCustomers}>
+			<option value="M/M/s">M/M/s</option>
+			<option value="M/M/s/K">M/M/s/K</option>
+		</select>
+	</div>
+	<div class="flex justify-between items-center">
+		<div>
 			<span class="text-sm lg:text-lg">Arrival rate (λ)</span>
-			<p class="text-xs lg:text-md text-gray-500">The average number of customers </p>
+			<p class="text-xs lg:text-md text-gray-500">Average number of customers</p>
 		</div>
 		<input
 			class="input input-bordered w-1/4"
@@ -110,7 +132,7 @@
 		<div>
 			<span class="text-sm lg:text-lg">Service rate (μ)</span>
 			<p class="text-xs lg:text-md text-gray-500">
-				Maximum customers per service
+				Average customers that can be served per server
 			</p>
 		</div>
 		<input
@@ -124,8 +146,8 @@
 	</div>
 	<div class="flex justify-between items-center">
 		<div>
-			<span class="text-sm lg:text-lg">Number of services (s)</span>
-			<p class="text-xs lg:text-md text-gray-500">Number of services</p>
+			<span class="text-sm lg:text-lg">Number of servers (s)</span>
+			<p class="text-xs lg:text-md text-gray-500">Number of servers</p>
 		</div>
 		<input
 			class="input input-bordered w-1/4"
@@ -136,6 +158,21 @@
 			on:change={calculateChartCustomers}
 		/>
 	</div>
+	{#if model == 'M/M/s/K'}
+		<div class="flex justify-between items-center">
+			<div>
+				<span class="text-sm lg:text-lg">Maximum customers (K)</span>
+				<p class="text-xs lg:text-md text-gray-500">Maximum customers can be in the system</p>
+			</div>
+			<input
+				class="input input-bordered w-1/4"
+				id="p"
+				type="number"
+				min="0"
+				bind:value={k}
+				on:change={calculateChartCustomers}
+			/>
+		</div>{/if}
 	<p>Traffic Intensity (ρ): {rho}</p>
 	<p>Average Number of Customers (L): {l}</p>
 	<p>Average Number of Customers in the Queue (Lq): {lq}</p>
