@@ -2,7 +2,7 @@
 	import { ChartTheme } from '@carbon/charts';
 	import { LineChart, ScaleTypes, type LineChartOptions } from '@carbon/charts-svelte';
 	import darkModeStore, { getDarkMode } from '../stores/darkModeStore';
-	import { mmsProbabilityN, mmsQueueCalculation } from '$lib/mms';
+	import { mmcProbabilityN, mmcQueueCalculation } from '$lib/mmc';
 
 	let isDark = getDarkMode();
 	darkModeStore.subscribe((darkMode) => {
@@ -10,10 +10,10 @@
 	});
 
 	// input
-	let model = 'M/M/s/K'; // selected model
-	let lambda = 45; // 60; // arrival rate (λ)
-	let mu = 15; // 75; // service rate (μ) (avg customers per servers)
-	let s = 3; // number of servers
+	let model = 'M/M/c'; // selected model
+	let lambda = 60; // arrival rate (λ)
+	let mu = 45; // service rate (μ) (avg customers per servers)
+	let c = 3; // number of servers
 	let k = 12; // a maximum of K customers can be in the system
 	let d = 0; // Deterministic service time (time units per customer)
 
@@ -28,11 +28,11 @@
 
 	function calculateChartCustomers() {
 		switch (model) {
-			case 'M/M/s':
-				[rho, p0, lq, l, wq, w] = mmsQueueCalculation(lambda, mu, s);
+			case 'M/M/c':
+				[rho, p0, lq, l, wq, w] = mmcQueueCalculation(lambda, mu, c);
 				break;
-			case 'M/M/s/K':
-				[rho, p0, lq, l, wq, w] = mmsQueueCalculation(lambda, mu, s, k);
+			case 'M/M/c/K':
+				[rho, p0, lq, l, wq, w] = mmcQueueCalculation(lambda, mu, c, k);
 				break;
 		}
 
@@ -42,11 +42,11 @@
 		let pn = -1;
 		while (p < 0.999 && pn != 0) {
 			switch (model) {
-				case 'M/M/s':
-					pn = mmsProbabilityN(n, lambda, mu, s, p0);
+				case 'M/M/c':
+					pn = mmcProbabilityN(n, lambda, mu, c, p0);
 					break;
-				case 'M/M/s/K':
-					pn = mmsProbabilityN(n, lambda, mu, s, p0, k);
+				case 'M/M/c/K':
+					pn = mmcProbabilityN(n, lambda, mu, c, p0, k);
 					break;
 			}
 			p += pn;
@@ -58,11 +58,11 @@
 		}
 
 		switch (model) {
-			case 'M/M/s':
-				pn = mmsProbabilityN(n, lambda, mu, s, p0);
+			case 'M/M/c':
+				pn = mmcProbabilityN(n, lambda, mu, c, p0);
 				break;
-			case 'M/M/s/K':
-				pn = mmsProbabilityN(n, lambda, mu, s, p0, k);
+			case 'M/M/c/K':
+				pn = mmcProbabilityN(n, lambda, mu, c, p0, k);
 				break;
 		}
 		newChartCustomers.push({
@@ -87,7 +87,15 @@
 			bottom: {
 				mapsTo: 'customer',
 				title: 'Number of customers in queue (n)',
-				scaleType: ScaleTypes.LINEAR
+				scaleType: ScaleTypes.LINEAR,
+				ticks: {
+					formatter(tick, i) {
+						if (tick % 1) {
+							return '';
+						}
+						return tick.toString();
+					}
+				}
 			}
 		},
 		height: '400px',
@@ -110,8 +118,8 @@
 			<p class="text-xs lg:text-md text-gray-500">Select queuing theory model</p>
 		</div>
 		<select class="select select-bordered" bind:value={model} on:change={calculateChartCustomers}>
-			<option value="M/M/s">M/M/s</option>
-			<option value="M/M/s/K">M/M/s/K</option>
+			<option value="M/M/c">M/M/c</option>
+			<option value="M/M/c/K">M/M/c/K</option>
 		</select>
 	</div>
 	<div class="flex justify-between items-center">
@@ -146,7 +154,7 @@
 	</div>
 	<div class="flex justify-between items-center">
 		<div>
-			<span class="text-sm lg:text-lg">Number of servers (s)</span>
+			<span class="text-sm lg:text-lg">Number of servers (c)</span>
 			<p class="text-xs lg:text-md text-gray-500">Number of servers</p>
 		</div>
 		<input
@@ -154,11 +162,11 @@
 			id="p"
 			type="number"
 			min="0"
-			bind:value={s}
+			bind:value={c}
 			on:change={calculateChartCustomers}
 		/>
 	</div>
-	{#if model == 'M/M/s/K'}
+	{#if model == 'M/M/c/K'}
 		<div class="flex justify-between items-center">
 			<div>
 				<span class="text-sm lg:text-lg">Maximum customers (K)</span>
@@ -179,8 +187,8 @@
 	<p>Average Time a Customer Spends in the Service (W): {w}</p>
 	<p>Average Time a Customer Spends in the Queue (Wq): {wq}</p>
 	<p>
-		Probability of no customers the Queue (P0): {(p0 * 100).toFixed(3)}%
+		Probability of no customers in the Queue (P0): {(p0 * 100).toFixed(3)}%
 	</p>
-	<p>Probability of 'n' customers the Queue (Pn):</p>
+	<p>Probability of 'n' customers in the Queue (Pn):</p>
 	<LineChart data={chartCustomers} {options} />
 </div>

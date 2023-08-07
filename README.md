@@ -1,8 +1,8 @@
 # Scalability Calculators
 
-A scalability calculation tools for System Design.
+Scalability calculation tools for multiple formulas such as Universal Scalability Law, Amdahl's Law, and Queuing Theory.
 
-# References
+## References
 
 <https://www.omnicalculator.com/other/amdahls-law#what-is-amdahls-law-and-its-formula>
 

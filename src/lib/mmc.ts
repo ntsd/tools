@@ -4,7 +4,7 @@ function factorial(n: number): number {
 }
 
 // Traffic Intensity (ρ) return [tau, rho]
-const mmsTrafficIntensity = (
+const mmcTrafficIntensity = (
 	lambda: number, // arrival rate
 	mu: number, // service rate
 	s: number // number of servers
@@ -15,7 +15,7 @@ const mmsTrafficIntensity = (
 };
 
 // probability of no customer in the queue (P0)
-const mmsProbabilityOfNoCustomerInQueue = (
+const mmcProbabilityOfNoCustomerInQueue = (
 	tau: number, // tau (lambda/mu)
 	rho: number,
 	s: number,
@@ -34,18 +34,18 @@ const mmsProbabilityOfNoCustomerInQueue = (
 		if (rho == 1) {
 			x *= k - s + 1;
 		} else {
-			x *= (1 - Math.pow(tau, k - s + 1)) / (1 - rho);
+			x *= (1 - Math.pow(rho, k - s + 1)) / (1 - rho);
 		}
 		sum += x;
 	} else {
 		sum += Math.pow(tau, s) / (factorial(s) * (1 - rho));
 	}
 
-	return Math.pow(sum, -1); // 1 - sum
+	return 1 / sum; // Math.pow(sum, -1);
 };
 
 // Average number of customers in the queue (Lq) (M/M/s)
-const mmsAvgCustomersQueue = (
+const mmcAvgCustomersQueue = (
 	tau: number, // tau (lambda / mu)
 	rho: number, // arrival rate
 	p0: number, // probability of no customer in the queue (P0)
@@ -55,7 +55,7 @@ const mmsAvgCustomersQueue = (
 };
 
 // Average number of customers in the queue (Lq) (M/M/s/K)
-const mmskAvgCustomersQueue = (
+const mmckAvgCustomersQueue = (
 	tau: number, // tau (lambda / mu)
 	rho: number, // arrival rate
 	p0: number, // probability of no customer in the queue (P0)
@@ -74,7 +74,7 @@ const mmskAvgCustomersQueue = (
 };
 
 // Average number of customers (L) (M/M/s)
-const mmsAvgCustomersInSystem = (
+const mmcAvgCustomersInSystem = (
 	lq: number, // Average number of customers in the queue (Lq)
 	tau: number // tau
 ) => {
@@ -82,7 +82,7 @@ const mmsAvgCustomersInSystem = (
 };
 
 // Average number of customers (L) (M/M/s/K)
-const mmskAvgCustomersInSystem = (
+const mmckAvgCustomersInSystem = (
 	lq: number, // Average number of customers in the queue (Lq)
 	tau: number, // tau
 	offset: number
@@ -91,7 +91,7 @@ const mmskAvgCustomersInSystem = (
 };
 
 // Average time spent in the system (W)
-const mmsAvgTimeInSystem = (
+const mmcAvgTimeInSystem = (
 	l: number, // Average number of customers (L)
 	lambda: number // arrival rate
 ) => {
@@ -99,7 +99,7 @@ const mmsAvgTimeInSystem = (
 };
 
 // Average time spent in the queue (WQ)
-const mmsAvgTimeInQueue = (
+const mmcAvgTimeInQueue = (
 	lq: number, // Average number of customers in the queue (Lq)
 	lambda: number // arrival rate
 ) => {
@@ -107,7 +107,7 @@ const mmsAvgTimeInQueue = (
 };
 
 // Probability of a queue with 'n' customers (Pn)
-export const mmsProbabilityN = (
+export const mmcProbabilityN = (
 	n: number, // number of customers (n)
 	lambda: number, // arrival rate
 	mu: number, // service rate
@@ -125,33 +125,33 @@ export const mmsProbabilityN = (
 };
 
 // calculate M/M/s queue return [rho, p0, lq, l, wq, w]
-export function mmsQueueCalculation(
+export function mmcQueueCalculation(
 	lambda: number, // arrival rate
 	mu: number, // service rate
 	s: number, // number of servers
 	k?: number // maximum number of customers in system
 ) {
-	const [tau, rho] = mmsTrafficIntensity(lambda, mu, s);
-	const p0 = mmsProbabilityOfNoCustomerInQueue(tau, rho, s, k);
+	const [tau, rho] = mmcTrafficIntensity(lambda, mu, s);
+	const p0 = mmcProbabilityOfNoCustomerInQueue(tau, rho, s, k);
 
 	let lq = 0;
 	let l = 0;
 
 	if (k) {
-		const offset = 1 - mmsProbabilityN(k, lambda, mu, s, p0, k);
+		const offset = 1 - mmcProbabilityN(k, lambda, mu, s, p0, k);
 
-		lq = mmskAvgCustomersQueue(tau, rho, p0, s, k);
-		l = mmskAvgCustomersInSystem(lq, tau, offset);
+		lq = mmckAvgCustomersQueue(tau, rho, p0, s, k);
+		l = mmckAvgCustomersInSystem(lq, tau, offset);
 
 		// lambda-bar (λ-bar)
 		lambda *= offset;
 	} else {
-		lq = mmsAvgCustomersQueue(tau, rho, p0, s);
-		l = mmsAvgCustomersInSystem(lq, tau);
+		lq = mmcAvgCustomersQueue(tau, rho, p0, s);
+		l = mmcAvgCustomersInSystem(lq, tau);
 	}
 
-	const wq = mmsAvgTimeInQueue(lq, lambda);
-	const w = mmsAvgTimeInSystem(l, lambda);
+	const wq = mmcAvgTimeInQueue(lq, lambda);
+	const w = mmcAvgTimeInSystem(l, lambda);
 
 	return [rho, p0, lq, l, wq, w];
 }
