@@ -3,16 +3,14 @@
 	export let onChange: (darkMode: boolean) => void;
 </script>
 
-<div class="swap bg-base-100 p-2">
-	<input
-		type="checkbox"
-		bind:checked={darkMode}
-		on:change={() => {
-			onChange(darkMode);
-		}}
-		aria-label="darkmode"
-	/>
-
+<button
+	class="swap swap-rotate bg-base-100 p-2 {darkMode && 'swap-active'}"
+	on:click={() => {
+		darkMode = !darkMode;
+		onChange(darkMode);
+	}}
+	aria-label="dark mode"
+>
 	<div class="swap-on">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -46,4 +44,4 @@
 			/>
 		</svg>
 	</div>
-</div>
+</button>

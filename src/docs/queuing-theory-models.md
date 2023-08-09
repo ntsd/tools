@@ -3,9 +3,9 @@
 The notation is written in the form A/S/c/K/N/D, where:
 
 - A denotes the time distribution between arrivals to the queue. Common symbols include:
-  `M`: Markov or memoryless, exponential distribution (the most common)
-  `D`: Degenerate distribution, A deterministic or fixed time
-  `G`: General distribution
+  - `M`: Markov or memoryless, i.e., exponential distribution or exponential time
+  - `D`: Degenerate distribution, i.e., A deterministic or constant time
+  - `G`: General distribution i.e., arbitrary distribution
 
 - S denotes the time distribution of the service rate. It uses the same symbols as A (M, D, G).
 

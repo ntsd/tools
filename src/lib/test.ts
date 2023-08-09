@@ -1,3 +1,5 @@
+import { factorial } from "./utils";
+
 function erlangB(c: number, x: number): number {
 	if (c === 0) return 1;
 	let sum = 1.0;
@@ -7,11 +9,6 @@ function erlangB(c: number, x: number): number {
 		sum += numerator / factorial(i);
 	}
 	return 1.0 / sum;
-}
-
-function factorial(n: number): number {
-	if (n === 0 || n === 1) return 1;
-	return n * factorial(n - 1);
 }
 
 function calculateGGsQueueMetrics(
@@ -56,32 +53,6 @@ function calculateMGSQueueMetrics(
 
 	// Average number of customers in the queue (Lq)
 	const Lq = (rho * rho) / (1 - rho);
-
-	// Average time a customer spends waiting in the queue (Wq)
-	const Wq = Lq / lambda;
-
-	return { L, W, Lq, Wq };
-}
-
-function calculateMMsQueueMetrics(
-	lambda: number,
-	mu: number,
-	s: number
-): { L: number; W: number; Lq: number; Wq: number } {
-	// Traffic Intensity (ρ)
-	const p = lambda / (mu * s);
-
-	// Utilization factor (U)
-	const U = p;
-
-	// Average number of customers in the system (L)
-	const L = p / (1 - U);
-
-	// Average time a customer spends in the system (W)
-	const W = L / lambda;
-
-	// Average number of customers in the queue (Lq)
-	const Lq = (p * p) / (1 - p);
 
 	// Average time a customer spends waiting in the queue (Wq)
 	const Wq = Lq / lambda;

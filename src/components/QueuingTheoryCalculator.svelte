@@ -3,6 +3,7 @@
 	import { LineChart, ScaleTypes, type LineChartOptions } from '@carbon/charts-svelte';
 	import darkModeStore, { getDarkMode } from '../stores/darkModeStore';
 	import { mmcProbabilityN, mmcQueueCalculation } from '$lib/mmc';
+	import { md1ProbabilityN, md1QueueCalculation } from '$lib/md1';
 
 	let isDark = getDarkMode();
 	darkModeStore.subscribe((darkMode) => {
@@ -10,14 +11,15 @@
 	});
 
 	// input
-	let model = 'M/M/c'; // selected model
-	let lambda = 60; // arrival rate (λ)
-	let mu = 45; // service rate (μ) (avg customers per servers)
+	let model = 'M/D/1'; //'M/M/c'; // selected model
+	let lambda = 45; // arrival rate (λ)
+	let mu = 60; // service rate (μ) (avg customers per servers)
 	let c = 3; // number of servers
 	let k = 12; // a maximum of K customers can be in the system
 	let d = 0; // Deterministic service time (time units per customer)
 
 	// output
+	let error: string;
 	let rho: number;
 	let p0: number;
 	let lq: number;
@@ -26,13 +28,25 @@
 	let w: number;
 	let chartCustomers: { customer: number; probability: number }[] = [];
 
-	function calculateChartCustomers() {
+	function calculate() {
+		error = '';
 		switch (model) {
 			case 'M/M/c':
+				if (lambda >= mu * c) {
+					error = 'Arrival rate (λ) must be less than Service rate (μ) * Number of servers (c)';
+					break;
+				}
 				[rho, p0, lq, l, wq, w] = mmcQueueCalculation(lambda, mu, c);
 				break;
 			case 'M/M/c/K':
 				[rho, p0, lq, l, wq, w] = mmcQueueCalculation(lambda, mu, c, k);
+				break;
+			case 'M/D/1':
+				if (lambda >= mu) {
+					error = 'Arrival rate (λ) must be less than Service rate (μ)';
+					break;
+				}
+				[rho, p0, lq, l, wq, w] = md1QueueCalculation(lambda, mu);
 				break;
 		}
 
@@ -47,6 +61,9 @@
 					break;
 				case 'M/M/c/K':
 					pn = mmcProbabilityN(n, lambda, mu, c, p0, k);
+					break;
+				case 'M/D/1':
+					pn = md1ProbabilityN(n, rho, p0);
 					break;
 			}
 			p += pn;
@@ -72,7 +89,7 @@
 
 		chartCustomers = newChartCustomers;
 	}
-	calculateChartCustomers();
+	calculate();
 
 	$: options = {
 		title: '',
@@ -112,14 +129,18 @@
 </script>
 
 <div class="flex flex-col gap-4">
+	{#if error}
+		<div class="text-error">Error: {error}</div>
+	{/if}
 	<div class="flex justify-between items-center">
 		<div>
 			<span class="text-sm lg:text-lg">Select Model</span>
 			<p class="text-xs lg:text-md text-gray-500">Select queuing theory model</p>
 		</div>
-		<select class="select select-bordered" bind:value={model} on:change={calculateChartCustomers}>
+		<select class="select select-bordered" bind:value={model} on:change={calculate}>
 			<option value="M/M/c">M/M/c</option>
 			<option value="M/M/c/K">M/M/c/K</option>
+			<option value="M/D/1">M/D/1</option>
 		</select>
 	</div>
 	<div class="flex justify-between items-center">
@@ -129,58 +150,64 @@
 		</div>
 		<input
 			class="input input-bordered w-1/4"
-			id="p"
 			type="number"
 			min="0"
 			bind:value={lambda}
-			on:change={calculateChartCustomers}
+			on:change={calculate}
 		/>
 	</div>
 	<div class="flex justify-between items-center">
 		<div>
 			<span class="text-sm lg:text-lg">Service rate (μ)</span>
 			<p class="text-xs lg:text-md text-gray-500">
-				Average customers that can be served per server
+				{#if model != 'M/D/1'}
+					Average customers that can be served per server
+				{:else}
+					Constant number of customers that can be served
+				{/if}
 			</p>
 		</div>
 		<input
 			class="input input-bordered w-1/4"
-			id="p"
 			type="number"
 			min={lambda}
 			bind:value={mu}
-			on:change={calculateChartCustomers}
+			on:change={calculate}
 		/>
 	</div>
-	<div class="flex justify-between items-center">
-		<div>
-			<span class="text-sm lg:text-lg">Number of servers (c)</span>
-			<p class="text-xs lg:text-md text-gray-500">Number of servers</p>
+	{#if model != 'M/D/1'}
+		<div class="flex justify-between items-center">
+			<div>
+				<span class="text-sm lg:text-lg">Number of servers (c)</span>
+				<p class="text-xs lg:text-md text-gray-500">Number of servers</p>
+			</div>
+			<input
+				class="input input-bordered w-1/4"
+				type="number"
+				min="0"
+				bind:value={c}
+				on:change={calculate}
+			/>
 		</div>
-		<input
-			class="input input-bordered w-1/4"
-			id="p"
-			type="number"
-			min="0"
-			bind:value={c}
-			on:change={calculateChartCustomers}
-		/>
-	</div>
+	{/if}
 	{#if model == 'M/M/c/K'}
 		<div class="flex justify-between items-center">
 			<div>
 				<span class="text-sm lg:text-lg">Maximum customers (K)</span>
-				<p class="text-xs lg:text-md text-gray-500">Maximum customers can be in the system</p>
+				<p class="text-xs lg:text-md text-gray-500">
+					Maximum customers can be in the system (queue and service)
+				</p>
 			</div>
 			<input
 				class="input input-bordered w-1/4"
-				id="p"
 				type="number"
 				min="0"
 				bind:value={k}
-				on:change={calculateChartCustomers}
+				on:change={calculate}
 			/>
-		</div>{/if}
+		</div>
+	{/if}
+	<div class="divider" />
 	<p>Traffic Intensity (ρ): {rho}</p>
 	<p>Average Number of Customers (L): {l}</p>
 	<p>Average Number of Customers in the Queue (Lq): {lq}</p>

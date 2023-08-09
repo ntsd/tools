@@ -25,7 +25,7 @@ const config = {
 		adapter: htmlMinifierAdapter(
 			customAdaptor(
 				adapter({
-					strict: true,
+					strict: true
 				})
 			)
 		),
