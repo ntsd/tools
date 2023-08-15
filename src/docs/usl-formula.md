@@ -1,15 +1,16 @@
 <script>
 	import { base } from '$app/paths';
+	import MathML from 'svelte-tex/package/MathML.svelte';
 </script>
 
-`C(N) = N / (1 + α(N-1) + βN(N-1))`
+<div class="text-xl lg:text-3xl">
+<MathML tex={String.raw`C(N) = \frac{N}{1 + \alpha(N-1) + \beta N(N-1)}	`} />
+</div>
 
 Where:
 
 - `C(N)` is the relative capacity of a system (which can be performance or throughput) as a function of the number of processing elements N.
-  
 - `α` is the contention parameter (which represents serialized or linear component of the workload).
-  
 - `β` is the coherency factor (which measures the influences from the overhead introduced by crosstalk between parallel executing tasks).
 
 Key takeaways from USL:

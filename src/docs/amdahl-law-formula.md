@@ -1,4 +1,10 @@
-`S_latency(s) = 1 / [(1 - p) + (p / s)]`
+<script>
+	import MathML from 'svelte-tex/package/MathML.svelte';
+</script>
+
+<div class="text-xl lg:text-3xl">
+<MathML tex={String.raw`S_{\text{latency}}(s) = \frac{1}{(1 - p) + \frac{p}{s}}`} />
+</div>
 
 where:
 

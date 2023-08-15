@@ -216,6 +216,6 @@
 	<p>
 		Probability of no customers in the Queue (P0): {(p0 * 100).toFixed(3)}%
 	</p>
-	<p>Probability of 'n' customers in the Queue (Pn):</p>
+	<p>Probability of <b>n</b> customers in the Queue (Pn):</p>
 	<LineChart data={chartCustomers} {options} />
 </div>

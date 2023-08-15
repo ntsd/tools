@@ -7,7 +7,7 @@
 	tabindex="-1"
 	class="collapse border border-base-300 {isOpen ? 'collapse-open' : 'collapse-close'}"
 >
-	<div class="collapse-title text-xl font-bold">
+	<div class="collapse-title text-lg lg:text-xl font-bold">
 		{title}
 	</div>
 	<div class="collapse-content">

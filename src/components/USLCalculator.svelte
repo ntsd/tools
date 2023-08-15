@@ -177,7 +177,7 @@
 <div class="space-y-4 flex flex-col">
 	<div class="flex flex-col">
 		{#each uslElements as elem, i}
-			<div class="grid grid-cols-1 md:grid-cols-3 flex-row items-end gap-2">
+			<div class="grid grid-cols-1 md:grid-cols-3 items-end gap-2">
 				<div class="form-control">
 					<label class="label" for={`concurrency-${i}`}>
 						<span class="label-text">Concurrency (N)</span>
@@ -211,7 +211,7 @@
 				</div>
 
 				<button
-					class="btn btn-square btn-outline btn-error"
+					class="btn btn-square btn-outline btn-error place-self-end md:place-self-auto"
 					on:click={() => {
 						removeUSLElem(i);
 					}}
