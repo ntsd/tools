@@ -1,19 +1,28 @@
-# Scalability Calculators
+# [Astro Svelte Tailwind](https://github.com/ntsd/astro-svelte-tailwind)
 
-Scalability calculation tools for multiple formulas such as Universal Scalability Law, Amdahl's Law, and Queuing Theory.
+Astro Starter Template with Svelte, Tailwind, DaisyUI, and Service Worker.
 
-## References
+```sh
+npm create astro@latest -- --template ntsd/astro-svelte-tailwind
+```
 
-<https://www.omnicalculator.com/other/amdahls-law#what-is-amdahls-law-and-its-formula>
+or clone the [Github repository](https://github.com/ntsd/astro-svelte-tailwind)
 
-<http://www.perfdynamics.com/Manifesto/USLscalability.html>
+```sh
+git clone https://github.com/ntsd/astro-svelte-tailwind.git
+```
 
-<https://arxiv.org/abs/0808.1431>
+## Installed Packages
 
-<https://web.mst.edu/~gosavia/queuing_formulas.pdf>
+please remove if you don't use them
 
-<https://yzr95924.github.io/pdf/book/Basic-Queueing-Theory.pdf>
+- Astro
+- Svelte
+- Tailwind + [Typography](https://github.com/tailwindlabs/tailwindcss-typography)
+- [DaisyUI](https://github.com/saadeghi/daisyui)
+- [Nano Stores](https://github.com/nanostores/nanostores)
+- [astrojs-service-worker](https://github.com/tatethurston/astrojs-service-worker)
 
-<https://real-statistics.com/probability-functions/queueing-theory/>
+## PageSpeed Insights Score
 
-<https://www.netlab.tkk.fi/opetus/s383143/kalvot/E_mg1jono.pdf>
+The PageSpeed Insights score will be full for all cetegories. [Test Results](https://pagespeed.web.dev/analysis/https-ntsd-github-io-astro-svelte-tailwind/5ta4jh3z09?form_factor=mobile)
