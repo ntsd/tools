@@ -1,0 +1,36 @@
+---
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/calculator.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#fff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+  </head>
+  <body>
+    <div class="flex flex-col min-h-screen">
+      <Navbar />
+      <div class="flex-grow container mx-auto justify-items-center py-10">
+        <slot />
+      </div>
+      <Footer />
+    </div>
+  </body>
+</html>

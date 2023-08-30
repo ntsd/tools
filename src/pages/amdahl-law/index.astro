@@ -1,0 +1,34 @@
+---
+import MainLayout from "../../layouts/main.astro";
+import Collapse from "../../components/Collapse.astro";
+import AmdahlLawCalculator from "../../calculators/amdahl-law/AmdahlLawCalculator.svelte";
+import AmdahlDoc from "../../calculators/amdahl-law/docs/amdahl-law.mdx";
+import AmdahlFormulaDoc from "../../calculators/amdahl-law/docs/amdahl-law-formula.mdx";
+
+import "@carbon/charts-svelte/styles.min.css";
+---
+
+<MainLayout
+  title="Amdahl's Law Calculator"
+  description="Calculate and visualize the Amdahl's Law for System Design"
+  ogImage="https://calculators.ntsd.dev/og/amdahl_1200x630.png"
+>
+  <div class="px-4 pb-8 space-y-4">
+    <div class="text-lg lg:text-2xl font-bold pb-2 underline">
+      Amdahl's Law Calculator
+    </div>
+    <AmdahlLawCalculator client:load client:only />
+  </div>
+
+  <Collapse title="What is Amdahl's Law?">
+    <article class="prose max-w-none">
+      <AmdahlDoc />
+    </article>
+  </Collapse>
+
+  <Collapse title="Amdahl's Law Formula">
+    <article class="prose max-w-none">
+      <AmdahlFormulaDoc />
+    </article>
+  </Collapse>
+</MainLayout>

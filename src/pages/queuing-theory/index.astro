@@ -1,0 +1,48 @@
+---
+import MainLayout from "../../layouts/main.astro";
+import Collapse from "../../components/Collapse.astro";
+import QueuingTheoryCalculator from "../../calculators/queuing-theory/QueuingTheoryCalculator.svelte";
+import QueuingTheoryHowToDoc from "../../calculators/queuing-theory/docs/queuing-theory-how-to.mdx";
+import QueuingTheoryDoc from "../../calculators/queuing-theory/docs/queuing-theory.mdx";
+import QueuingTheoryUsesDoc from "../../calculators/queuing-theory/docs/queuing-theory-uses.mdx";
+import QueuingTheoryModelsDoc from "../../calculators/queuing-theory/docs/queuing-theory-models.mdx";
+
+import "@carbon/charts-svelte/styles.min.css";
+---
+
+<MainLayout
+  title="Queuing Theory Calculator"
+  description="Calculate and visualize Queuing Theories for System Design"
+  ogImage="https://calculators.ntsd.dev/og/queuing_theory_1200x630.png"
+>
+  <div class="px-4 pb-8 space-y-4">
+    <div class="text-lg lg:text-2xl font-bold pb-2 underline">
+      Queuing Theory Calculator
+    </div>
+    <QueuingTheoryCalculator client:load client:only />
+  </div>
+
+  <Collapse title="How to use Queuing Theory Calulator?">
+    <article class="prose max-w-none">
+      <QueuingTheoryHowToDoc />
+    </article>
+  </Collapse>
+
+  <Collapse title="What is Queuing Theory?">
+    <article class="prose max-w-none">
+      <QueuingTheoryDoc />
+    </article>
+  </Collapse>
+
+  <Collapse title="Queuing Theory Use Cases">
+    <article class="prose max-w-none">
+      <QueuingTheoryUsesDoc />
+    </article>
+  </Collapse>
+
+  <Collapse title="Queuing Theory Models">
+    <article class="prose max-w-none">
+      <QueuingTheoryModelsDoc />
+    </article>
+  </Collapse>
+</MainLayout>

@@ -1,7 +1,7 @@
-export const pageTitle = 'Scalability Calculators';
+export const pageTitle = "Online Calculators";
 
-export const pageDescription = 'Calculate and visualize scalability formulas tools for System Design';
+export const pageDescription = "Online calculators and visualizer tools";
 
-export const githubLink = 'https://github.com/ntsd/scalability-calculators';
+export const githubLink = "https://github.com/ntsd/calculators";
 
-export const pageURL = 'https://scalability-calculators.ntsd.dev';
+export const pageURL = "https://calculators.ntsd.dev";
