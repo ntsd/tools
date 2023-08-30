@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div tabindex="-1" class="collapse border border-base-300 collapse-open">
+  <div class="collapse-title text-lg lg:text-xl font-bold">
+    {title}
+  </div>
+  <div class="collapse-content">
+    <slot />
+  </div>
+</div>

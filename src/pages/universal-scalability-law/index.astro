@@ -1,0 +1,41 @@
+---
+import MainLayout from "../../layouts/main.astro";
+import Collapse from "../../components/Collapse.astro";
+import UslCalculator from "../../calculators/universal-scalability-law/USLCalculator.svelte";
+import USLHowToDoc from "../../calculators/universal-scalability-law/docs/usl-how-to.mdx";
+import USLDoc from "../../calculators/universal-scalability-law/docs/usl.md";
+import USLFormulaDoc from "../../calculators/universal-scalability-law/docs/usl-formula.mdx";
+
+import "@carbon/charts-svelte/styles.min.css";
+---
+
+<MainLayout
+  title="Universal Scalability Law Calculator"
+  description="Calculate and visualize the Universal Scalability Law for System Design"
+  ogImage="https://calculators.ntsd.dev/og/usl_1200x630.png"
+>
+  <div class="px-4 pb-8 space-y-4">
+    <div class="text-lg lg:text-2xl font-bold pb-2 underline">
+      Universal Scalability Law Calculator
+    </div>
+    <UslCalculator client:load client:only />
+  </div>
+
+  <Collapse title="How to use Universal Scalability Law Calculator?">
+    <article class="prose max-w-none">
+      <USLHowToDoc />
+    </article>
+  </Collapse>
+
+  <Collapse title="What is The Universal Scalability Law?">
+    <article class="prose max-w-none">
+      <USLDoc />
+    </article>
+  </Collapse>
+
+  <Collapse title="The Universal Scalability Law Formula">
+    <article class="prose max-w-none">
+      <USLFormulaDoc />
+    </article>
+  </Collapse>
+</MainLayout>

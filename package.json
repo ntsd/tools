@@ -1,6 +1,6 @@
 {
   "name": "calculators",
-  "description": "Astro Starter Template with Svelte, Tailwind, DaisyUI, and Service Worker",
+  "description": "Online calculators for multiple formulas such as Universal Scalability Law, Amdahl's Law, and Queuing Theory.",
   "type": "module",
   "version": "0.0.1",
   "author": "Jirawat Boonkumnerd <contact@ntsd.dev> (https://ntsd.dev)",
@@ -12,15 +12,22 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/svelte": "^3.1.0",
-    "@astrojs/tailwind": "^4.0.0",
+    "@astrojs/mdx": "^1.0.0",
+    "@astrojs/svelte": "^4.0.0",
+    "@astrojs/tailwind": "^5.0.0",
+    "@carbon/charts": "^1.11.21",
+    "@carbon/charts-svelte": "^1.11.21",
     "@tailwindcss/typography": "^0.5.9",
-    "astro": "^2.10.7",
+    "astro": "^3.0.2",
     "astrojs-service-worker": "^1.0.0",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.5.1",
+    "daisyui-ntsd": "^1.0.2",
+    "ml-levenberg-marquardt": "^4.1.2",
     "nanostores": "^0.9.3",
     "postcss": "^8.4.24",
+    "rehype-katex": "^6.0.3",
+    "remark-math": "^5.1.1",
     "tailwindcss": "^3.3.2"
   }
 }

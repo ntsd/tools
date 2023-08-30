@@ -1,0 +1,1 @@
+Queuing theory is a mathematical modeling tool used to analyze waiting lines, or queues. It is used to predict the length of queues, the amount of time customers spend waiting, and the number of servers needed to provide a given level of service.

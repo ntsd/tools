@@ -1,16 +1,29 @@
 ---
+import { pageDescription, pageTitle } from "../configs";
 import MainLayout from "../layouts/main.astro";
-import Button from "../components/Button.svelte";
-import * as README from "../../README.md";
-
-// https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <MainLayout
-  content={{
-    title: "Astro + Svelte + Tailwind",
-    description:
-      "Astro Starter Template with Svelte, Tailwind, DaisyUI, and Service Worker",
-  }}
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="https://calculators.ntsd.dev/calculator-512.png"
 >
+  <p class="text-center mb-4 xl:mb-8 p-1">
+    {pageDescription}
+  </p>
+  <div
+    class="flex flex-col justify-around content-center gap-10 text-center text-lg lg:text-2xl font-bold"
+  >
+    <div>
+      <a class="link" href="/universal-scalability-law"
+        >Universal Scalability Law Calculator</a
+      >
+    </div>
+    <div>
+      <a class="link" href="/amdahl-law">Amdahl's Law Calculator</a>
+    </div>
+    <div>
+      <a class="link" href="/queuing-theory">Queuing Theory Calculator</a>
+    </div>
+  </div>
 </MainLayout>

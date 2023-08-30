@@ -1,0 +1,15 @@
+<div class="text-xl lg:text-3xl">
+$S_{\text{latency}}(s)=\frac{1}{(1 - p) + \frac{p}{s}}$
+</div>
+
+where:
+
+- `S_latency(s)` is the theoretical speedup of the execution of the whole task.
+
+- `s` is the speedup of the part of the task that benefits from improved system resources.
+
+- `p` is the proportion of execution time that the part benefiting from improved resources originally occupied.
+
+In the context of parallel computing s often refers to the number of processors in the system and p is the parallel portion of the program. In such a context, Amdahl's law states that the speedup of a program using multiple processors in parallel computing is limited by the time needed for the sequential fraction of the program.
+
+For example, if 95% of the program can be parallelized, the theoretical maximum speedup using parallel computing would be 20 times, no matter how many processors are used.
