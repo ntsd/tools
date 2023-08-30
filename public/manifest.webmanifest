@@ -1,6 +1,6 @@
 {
-    "name": "Scalability Calculators",
-    "short_name": "Scalability Calculators",
+    "name": "Online Calculators",
+    "short_name": "Calculators",
     "description": "",
     "start_url": "/",
     "display": "standalone",
