@@ -1,7 +1,7 @@
 {
-    "name": "Calculators",
-    "short_name": "Calculators",
-    "description": "Online calculators and visualizer tools",
+    "name": "Tools",
+    "short_name": "Tools",
+    "description": "My Online tools, calculators, and visualizer tools",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#fff",

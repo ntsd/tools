@@ -1,7 +1,7 @@
-export const pageTitle = "Online Calculators";
+export const pageTitle = "Online Tools";
 
-export const pageDescription = "Online calculators and visualizer tools";
+export const pageDescription = "My online tools, calculators, and visualizer tools";
 
-export const githubLink = "https://github.com/ntsd/calculators";
+export const githubLink = "https://github.com/ntsd/tools";
 
-export const pageURL = "https://calculators.ntsd.dev";
+export const pageURL = "https://tools.ntsd.dev";
